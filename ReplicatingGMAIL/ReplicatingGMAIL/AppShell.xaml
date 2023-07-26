@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ReplicatingGMAIL.Views" 
+       xmlns:screen="clr-namespace:ReplicatingGMAIL.Views.ContentViewTemplate"
+       Title="ReplicatingGMAIL"
+       Shell.FlyoutBehavior="Flyout"
+       Shell.BackgroundColor="{StaticResource BackgroundMenu}"
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       FlyoutVerticalScrollMode="Auto"
+       Shell.NavBarHasShadow="False"
+       Shell.NavBarIsVisible="False"
+       x:Class="ReplicatingGMAIL.AppShell">
+
+
+    <!-- Resources Shell -->
+    <Shell.Resources>
+        <ResourceDictionary>
+            
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource BackgroundMenu}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource BackgroundSelectColor}"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource BlackCustom}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource BlackCustom}"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+            <!--
+            Default Styles for all Flyout Items
+            https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
+            -->
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource Primary}"></Setter>
+            </Style>
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            
+
+            <!--
+            Custom Style you can apply to any Menu Item
+            -->
+            <Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+        </ResourceDictionary>
+    </Shell.Resources>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <!-- Template pour le contenu Flyout-->
+    <Shell.ItemTemplate>
+        <!-- Template personnalisé pour le flyoutItem -->
+        <DataTemplate>
+            
+            <!-- Grid pour l'architecture de presentation-->
+            <Grid x:Name="FlyoutItemLayout"
+               BackgroundColor="{StaticResource BackgroundMenu}"
+               HeightRequest="{x:OnPlatform Android=50}"
+               ColumnSpacing="{x:OnPlatform UWP=0}"
+               RowSpacing="{x:OnPlatform UWP=0}">
+                   <VisualStateManager.VisualStateGroups>
+                       <VisualStateGroupList>
+                           <VisualStateGroup x:Name="CommonStates">
+                               <VisualState x:Name="Normal" />
+                               <VisualState x:Name="Selected">
+                                   <VisualState.Setters>
+                                       <Setter Property="BackgroundColor"
+                                            Value="{x:OnPlatform Android={StaticResource BackgroundSelectColor}, iOS={StaticResource BackgroundSelectColor}}" />
+                                   </VisualState.Setters>
+                               </VisualState>
+                           </VisualStateGroup>
+                       </VisualStateGroupList>
+                   </VisualStateManager.VisualStateGroups>
+                  <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="{x:OnPlatform Android=54, iOS=50, UWP=Auto}" />
+                       <ColumnDefinition Width="*" />
+                       <ColumnDefinition Width="25" />
+                  </Grid.ColumnDefinitions>
+
+                  <!-- Image pour logo explicit -->
+                  <Image x:Name="FlyoutItemImage"
+                        Source="{Binding FlyoutIcon}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="{x:OnPlatform Default=End, UWP=Start}"
+                        HeightRequest="{x:OnPlatform Android=22, iOS=20, UWP=14}"
+                        WidthRequest="{x:OnPlatform Android=22, iOS=20, UWP=14}">
+                      <Image.Margin>
+                          <OnPlatform x:TypeArguments="Thickness">
+                              <OnPlatform.Platforms>
+                                  <On Platform="UWP"
+                      Value="12,0,12,0" />
+                              </OnPlatform.Platforms>
+                          </OnPlatform>
+                      </Image.Margin>
+                  </Image>
+
+                          <!-- label pour titre du menu -->
+                  <Label x:Name="FlyoutItemLabel"
+                        Grid.Column="1"
+                        Text="{Binding Title}"
+                        FontSize="{x:OnPlatform Android=14, iOS=Small}"
+                        HorizontalOptions="{x:OnPlatform UWP=Start}"
+                        HorizontalTextAlignment="{x:OnPlatform UWP=Start}"
+                        FontAttributes="{x:OnPlatform iOS=Bold}"
+                        VerticalTextAlignment="Center">
+                      <Label.TextColor>
+                          <OnPlatform x:TypeArguments="Color">
+                              <OnPlatform.Platforms>
+                                  <On Platform="Android"
+                                      Value="{StaticResource BlackCustom}" />
+                              </OnPlatform.Platforms>
+                          </OnPlatform>
+                      </Label.TextColor>
+                      <Label.Margin>
+                          <OnPlatform x:TypeArguments="Thickness">
+                              <OnPlatform.Platforms>
+                                  <On Platform="Android"
+                                      Value="20, 0, 0, 0" />
+                              </OnPlatform.Platforms>
+                          </OnPlatform>
+                      </Label.Margin>
+                      <Label.FontFamily>
+                          <OnPlatform x:TypeArguments="x:String">
+                              <OnPlatform.Platforms>
+                                  <On Platform="Android"
+                                      Value="sans-serif-medium" />
+                              </OnPlatform.Platforms>
+                          </OnPlatform>
+                      </Label.FontFamily>
+                  </Label>
+            </Grid>
+                   
+
+        </DataTemplate>
+    </Shell.ItemTemplate>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    
+    
+    <!-- Template each MenuItem -->
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <!-- Grid pour l'architecture de presentation-->
+            <Grid x:Name="menuItemLayout"
+               BackgroundColor="{StaticResource BackgroundMenu}"
+               HeightRequest="{x:OnPlatform Android=50}"
+               ColumnSpacing="{x:OnPlatform UWP=0}"
+               RowSpacing="{x:OnPlatform UWP=0}">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="{x:OnPlatform Android={StaticResource BackgroundSelectColor}, iOS={StaticResource BackgroundSelectColor}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{x:OnPlatform Android=54, iOS=50, UWP=Auto}" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="25" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Image pour logo explicit -->
+                <Image x:Name="menuItemImage"
+                        Source="{Binding Icon}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="{x:OnPlatform Default=End, UWP=Start}"
+                        HeightRequest="{x:OnPlatform Android=22, iOS=20, UWP=14}"
+                        WidthRequest="{x:OnPlatform Android=22, iOS=20, UWP=14}">
+                    <Image.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <OnPlatform.Platforms>
+                                <On Platform="UWP"
+                      Value="12,0,12,0" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Image.Margin>
+                </Image>
+
+                <!-- label pour titre du menu -->
+                <Label x:Name="menuItemLabel"
+                        Grid.Column="1"
+                        Text="{Binding Text}"
+                        FontSize="{x:OnPlatform Android=14, iOS=Small}"
+                        HorizontalOptions="{x:OnPlatform UWP=Start}"
+                        HorizontalTextAlignment="{x:OnPlatform UWP=Start}"
+                        FontAttributes="{x:OnPlatform iOS=Bold}"
+                        VerticalTextAlignment="Center">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <OnPlatform.Platforms>
+                                <On Platform="Android"
+                                      Value="{StaticResource BlackCustom}" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Label.TextColor>
+                    <Label.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <OnPlatform.Platforms>
+                                <On Platform="Android"
+                                      Value="20, 0, 0, 0" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Label.Margin>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <OnPlatform.Platforms>
+                                <On Platform="Android"
+                                      Value="sans-serif-medium" />
+                            </OnPlatform.Platforms>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+            </Grid>
+
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+
+
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <!-- Element du FlyoutHeader -->
+    <Shell.FlyoutHeader>
+        <screen:EnteteFlyOutItems />
+    </Shell.FlyoutHeader>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <!-- Tab Bar  pour retourner a la boite de reception et aller vers google meet-->
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+    <TabBar>
+
+        <!-- Tab Bar  pour retourner a la boite de reception et aller vers google meet-->
+        <Tab>
+            <ShellContent Route="ItemsPage"
+                     ContentTemplate="{DataTemplate local:BoiteDeReception}"/>
+            <Tab.Icon>
+                <FontImageSource Glyph="&#xe0e1;"
+                        Size="24"
+                        Color="{StaticResource BlackCustom}" 
+                        FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+            </Tab.Icon>
+        </Tab>
+
+        <Tab>
+            <ShellContent Route="GoogleMeet" 
+                     ContentTemplate="{DataTemplate local:GoogleMeet}"/>
+            <Tab.Icon>
+                <FontImageSource Glyph="&#xe04b;" 
+                      Color="{StaticResource BlackCustom}"
+                      Size="24"
+                      FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+            </Tab.Icon>
+        </Tab>
+
+        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+    </TabBar>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+    <!-- Touts les boites -->
+    <FlyoutItem Title="Toutes les boites">
+
+        <ShellContent Route="TouslesMessages" 
+                      ContentTemplate="{DataTemplate local:TouslesMessages}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe97f;" 
+                     Color="{StaticResource BlackCustom}" 
+                     FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+    <!-- Element du Flyout premiere liste -->
+    <FlyoutItem Title="Boite de reception" >
+
+        <ShellContent Route="ItemsPage" 
+                  ContentTemplate="{DataTemplate local:BoiteDeReception}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe156;" 
+                      Color="{StaticResource BlackCustom}"
+                      FontFamily="{StaticResource MaterialIconsRoundRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Non lus">
+
+        <ShellContent Route="MessageNonLusPage" 
+                ContentTemplate="{DataTemplate local:MessageNonLusPage}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe151;" 
+                      Color="{StaticResource BlackCustom}" 
+                      FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Messages suivis">
+
+        <ShellContent Route="MessagesSuivisPage" 
+                      ContentTemplate="{DataTemplate local:MessagesSuivisPage}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe885;" 
+                    Color="{StaticResource BlackCustom}" 
+                    FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="En attente">
+
+        <ShellContent Route="MessageEnAttentePage" 
+                      ContentTemplate="{DataTemplate local:MessageEnAttentePage}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe8b5;"
+                       Color="{StaticResource BlackCustom}" 
+                       FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Important">
+
+        <ShellContent Route="MessageImportantPage" 
+                      ContentTemplate="{DataTemplate local:MessageImportantPage}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe948;" 
+                     Color="{StaticResource BlackCustom}" 
+                     FontFamily="{StaticResource MaterialIconsRoundRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Envoyés">
+
+        <ShellContent Route="MessagesEnvoyesPage" 
+                      ContentTemplate="{DataTemplate local:MessagesEnvoyesPage}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe163;" 
+                          Color="{StaticResource BlackCustom}"
+                          FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Envois programmés">
+
+        <ShellContent Route="MessageEnvoiProgramme" 
+                      ContentTemplate="{DataTemplate local:MessageEnvoiProgramme}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xea0a;" 
+                      Color="{StaticResource BlackCustom}" 
+                      FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Boite d'envoi">
+
+        <ShellContent Route="MessageBoiteEnvoi" 
+                      ContentTemplate="{DataTemplate local:MessageBoiteEnvoi}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe675;" 
+                    Color="{StaticResource BlackCustom}" 
+                    FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Brouillons">
+
+        <ShellContent Route="MessageBrouillon" 
+                      ContentTemplate="{DataTemplate local:MessageBrouillon}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe24d;" 
+                          Color="{StaticResource BlackCustom}" 
+                          FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Tous les messages" >
+
+        <ShellContent Route="TouslesMessages" 
+                      ContentTemplate="{DataTemplate local:TouslesMessages}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe02f;" 
+                    Color="{StaticResource BlackCustom}" 
+                    FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Spam">
+
+        <ShellContent Route="MessagesSpams" 
+                      ContentTemplate="{DataTemplate local:MessagesSpams}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe160;" 
+                     Color="{StaticResource BlackCustom}" 
+                     FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Corbeille">
+
+        <ShellContent Route="Corbeille" 
+                      ContentTemplate="{DataTemplate local:Corbeille}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe92e;" 
+                         Color="{StaticResource BlackCustom}" 
+                         FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+
+    <FlyoutItem Title="Junk">
+
+        <ShellContent Route="MessageJunk" 
+                    ContentTemplate="{DataTemplate local:MessageJunk}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe892;" 
+                        Color="{StaticResource BlackCustom}" 
+                        FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Notes">
+
+        <ShellContent Route="MessagesNotes" 
+                      ContentTemplate="{DataTemplate local:MessagesNotes}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe892;" 
+                         Color="{StaticResource BlackCustom}" 
+                         FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Personnel">
+
+        <ShellContent Route="MessagesPersonnel" 
+                      ContentTemplate="{DataTemplate local:MessagesPersonnel}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe892;" 
+                           Color="{StaticResource BlackCustom}" 
+                           FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+
+    <FlyoutItem Title="Reçus" >
+
+        <ShellContent Route="MessageReçu" 
+                      ContentTemplate="{DataTemplate local:MessageReçu}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe892;" 
+                    Color="{StaticResource BlackCustom}" 
+                    FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+
+
+    <FlyoutItem Title="Unwanted">
+
+        <ShellContent Route="MessagesUnwanted" 
+                      ContentTemplate="{DataTemplate local:MessagesUnwanted}"/>
+
+        <FlyoutItem.Icon>
+            <FontImageSource Glyph="&#xe892;" 
+                         Color="{StaticResource BlackCustom}" 
+                         FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+        </FlyoutItem.Icon>
+    </FlyoutItem>
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <!--parametres et a propos-->
+        <MenuItem Clicked="OnMenuItemClicked"
+                Text="Paramètres" >
+                <MenuItem.IconImageSource>
+                    <FontImageSource Glyph="&#xe8b8;" 
+                         Color="{StaticResource BlackCustom}"
+                         FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+                </MenuItem.IconImageSource>
+        <!--<ShellContent Title="Paramètres" 
+                                Route="ParametresPage" 
+                                ContentTemplate="{DataTemplate local:ParametresPage}">
+
+                      <ShellContent.Icon>
+                          <FontImageSource Glyph="&#xe8b8;" 
+                                           Color="{StaticResource BlackCustom}"
+                                           FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+                      </ShellContent.Icon>
+                  </ShellContent>-->
+        </MenuItem>
+
+        <ShellContent Title="Aide et commentaires" 
+                      Route="AideetCommentairePage" 
+                      ContentTemplate="{DataTemplate local:AideetCommentairePage}">
+            <ShellContent.Icon>
+                <FontImageSource Glyph="&#xe8fd;" 
+                                 Color="{StaticResource BlackCustom}" 
+                                 FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+            </ShellContent.Icon>
+        </ShellContent>
+
+   
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    
+    
+    <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
+
+    <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    </MenuItem>-->
+
+    <!--
+        TabBar lets you define content that won't show up in a flyout menu. When this content is active
+        the flyout menu won't be available. This is useful for creating areas of the application where 
+        you don't want users to be able to navigate away from. If you would like to navigate to this 
+        content you can do so by calling 
+        await Shell.Current.GoToAsync("//LoginPage");
+    -->
+    <TabBar>
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+    </TabBar>
+
+    <!-- utile pour la page de connexion. il est important qu'elle soit en hauteur, en premier -->
+    <!--<ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
+    </ShellItem>-->
+
+</Shell>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Controls="clr-namespace:ReplicatingGMAIL.Controls"
+             xmlns:pathimage="clr-namespace:ReplicatingGMAIL.Converters" 
+             xmlns:custom="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             x:Class="ReplicatingGMAIL.Views.ContentViewTemplate.BarreDeNavigationCustomise">
+    
+    <ContentView.Content>
+
+        <!--frame utile pour la barre de navigation personnaliséé-->
+        <Controls:MaterialFrame
+                    Style="{StaticResource FrameSearch}"
+                    Elevation="1"
+                    HorizontalOptions="FillAndExpand">
+
+            <!--stackLayout pour la disposition des elements--> 
+            <StackLayout Orientation="Horizontal"
+                        Spacing="20"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                
+                <!--Button d'image utile pour afficher le menu tiroir-->
+                <ImageButton HorizontalOptions="StartAndExpand"
+                             VerticalOptions="Center"
+                             Style="{StaticResource ImageButtonMenuApplication}"
+                             Command="{Binding PageDeMenu}">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="&#xe5d2;" 
+                                     FontFamily="{StaticResource MaterialIconsOutlinedRegular}"
+                                     Color="{StaticResource BlackCustom}"/>
+                        </ImageButton.Source>
+                </ImageButton>
+
+
+                <!--texte intuitif pour la recherche-->
+                <Label 
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource labelChmapsSaisieSearch}"
+                    Text="Rechercher dans les messages">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer 
+                               Command="{Binding PageDeRechercheAvancee}">
+                        </TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+
+
+                <custom:CircleImage
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="Center"
+                    Style="{StaticResource ImageButtonNavUser}"
+                    BorderColor="{StaticResource Primary}"
+                    BorderThickness="2"
+                    Source="{pathimage:ImageResource ReplicatingGMAIL.Images.usersecond.png}"/>
+
+
+            </StackLayout>
+
+        </Controls:MaterialFrame>
+
+
+    </ContentView.Content>
+</ContentView>

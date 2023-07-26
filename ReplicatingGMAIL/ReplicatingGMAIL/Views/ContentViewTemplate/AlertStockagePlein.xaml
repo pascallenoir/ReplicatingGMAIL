@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:Controls="clr-namespace:ReplicatingGMAIL.Controls"
+             x:Class="ReplicatingGMAIL.Views.ContentViewTemplate.AlertStockagePlein">
+ 
+    <ContentView.Content>
+
+        <StackLayout Spacing="0">
+
+            <!--<Frame>-->
+            <Controls:MaterialFrame
+                    Style="{StaticResource FrameApplicationAlertStockagr}"
+                    Elevation="0"
+                    HorizontalOptions="FillAndExpand">
+
+                <!--Grid pour la disposition des elements dans le template-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="20" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <!--image utile pour Alerte Stockage-->
+                    <Image Grid.Column="0"
+                           Grid.Row="0"
+                           Margin="0,4"
+                           Style="{StaticResource ImageFrameAlertStockage}">
+                        <Image.Source>
+                            <FontImageSource Glyph="&#xf083;" 
+                                            Color="{StaticResource RedTextColor}"
+                                            FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+                        </Image.Source>
+                    </Image>
+
+                    <!--Titre de l'alerte-->
+                    <Label  Grid.Column="1"
+                                Grid.Row="0"
+                                Text="Espace de stockage du compte plein"
+                                Style="{StaticResource TitreFrameAlertItem}">
+                    </Label>
+
+                    <!--Description de l'alerte-->
+                    <Label Grid.Column="1"
+                          Grid.Row="1"
+                          Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ipsum a arcu cursus vitae congue"
+                          Style="{StaticResource SousTitreFrameAlertItem}"/>
+
+
+                    <!--Description de l'alerte-->
+                    <Label Grid.Column="1"
+                                Grid.Row="4"
+                                Text="Libérer de l'espace"
+                                Style="{StaticResource SousTitreFrameAlertItemBold}"/>
+
+                    <!--Button-->
+                    <Button Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          Grid.Row="2"
+                          Text="Acheter de l'espace"
+                          Style="{StaticResource ButtonFrameAlertStock}"/>
+
+
+                    <!--Button d'image utile pour plus de fonctonnalités-->
+                    <ImageButton  Grid.Column="2"
+                                Grid.Row="0"
+                                VerticalOptions="StartAndExpand"
+                                Style="{StaticResource ImageButtonFrameAlerteStockage}">
+                        <ImageButton.Source>
+                            <FontImageSource Glyph="&#xe5d4;" 
+                                            Color="{StaticResource RedTextColor}"
+                                            FontFamily="{StaticResource MaterialIconsOutlinedRegular}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+
+                </Grid>
+
+            </Controls:MaterialFrame>
+        </StackLayout>
+
+    </ContentView.Content>
+</ContentView>

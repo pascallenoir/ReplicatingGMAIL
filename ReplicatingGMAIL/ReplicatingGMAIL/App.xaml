@@ -1,0 +1,970 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReplicatingGMAIL.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+
+        <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+        <ResourceDictionary>
+
+            <!-- Colors for the app -->
+            <Color x:Key="Primary">#FFFFFF</Color>
+            <Color x:Key="BackgroundMenu">#F2F5FC</Color>
+            <Color x:Key="ButtonColor">#0B57CF</Color>
+            <Color x:Key="BackgroundSelectColor">#C3E7FF</Color>
+            <Color x:Key="BlueCustom">#4285F4</Color>
+            <Color x:Key="BlackCustom">#1D1E23</Color>
+            <Color x:Key="BackgroundColorAlert">#FADEDB</Color>
+            <Color x:Key="RedTextColor">#AE3B40</Color>
+            <Color x:Key="BluetextColor">#224B9D</Color>
+            <Color x:Key="textForRedColor">#401a19</Color>
+            <Color x:Key="RedButtonColor">#B3261C</Color>
+            <Color x:Key="BkueTextColorButton">#000c22</Color>
+            <Color x:Key="GreenColor">Green</Color>
+            <Color x:Key="GrayColor"> Gray</Color>
+            <Color x:Key="TransparentColor">Transparent</Color>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+            <!-- Police d'icones font awesome -->
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="FontAwesomeBrands">
+                <On Platform="Android" 
+          Value="FontAwesome5Brands.otf#Regular" />
+                <On Platform="iOS" 
+          Value="FontAwesome5Brands-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/FontAwesome5Brands.otf#Font Awesome 5 Brands" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="FontAwesomeSolid">
+                <On Platform="Android" 
+          Value="FontAwesome5Solid.otf#Regular" />
+                <On Platform="iOS" 
+          Value="FontAwesome5Free-Solid" />
+                <On Platform="UWP" 
+          Value="/Assets/FontAwesome5Solid.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="FontAwesomeRegular">
+                <On Platform="Android" 
+          Value="FontAwesome5Regular.otf#Regular" />
+                <On Platform="iOS" 
+          Value="FontAwesome5Free-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/FontAwesome5Regular.otf#Font Awesome 5 Free" />
+            </OnPlatform>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+            
+            <!-- Police d'icones material design -->
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="MaterialIconsSharpRegular">
+                <On Platform="Android" 
+          Value="MaterialIconsSharpRegular.otf#Regular" />
+                <On Platform="iOS" 
+          Value="MaterialIconsSharpRegular-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/MaterialIconsSharpRegular.otfMaterial Icons Sharp Regular" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="MaterialIconsRoundRegular">
+                <On Platform="Android" 
+          Value="MaterialIconsRoundRegular.otf#Regular" />
+                <On Platform="iOS" 
+          Value="MaterialIconsRoundRegular-Solid" />
+                <On Platform="UWP" 
+          Value="/Assets/MaterialIconsRoundRegular.otf#Material Icons RoundRegular" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="MaterialIconsOutlinedRegular">
+                <On Platform="Android" 
+          Value="MaterialIconsOutlinedRegular.otf#Regular" />
+                <On Platform="iOS" 
+          Value="MaterialIconsOutlinedRegular-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/MaterialIconsOutlinedRegular.otf#Material Icons Outlined Regular" />
+            </OnPlatform>
+
+            <OnPlatform x:TypeArguments="x:String" 
+                x:Key="MaterialIconsTwoToneRegular">
+                <On Platform="Android" 
+          Value="MaterialIconsTwoToneRegular.otf#Regular" />
+                <On Platform="iOS" 
+          Value="MaterialIconsTwoToneRegular-Regular" />
+                <On Platform="UWP" 
+          Value="/Assets/MaterialIconsTwoToneRegular.otf#Material Icons Two ToneRegular" />
+            </OnPlatform>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+        </ResourceDictionary>
+        <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+        <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! STYLES UTILES DANS L' APPLICATION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ BUTTON §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+        <!--  STYLE DE IMAGEBUTTON -->
+        <Style x:Key="ImageButtonMenuApplication" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="{StaticResource TransparentColor}" />
+            <Setter Property="Aspect" Value="AspectFit" />
+            <Setter Property="HeightRequest" Value="22" />
+            <Setter Property="WidthRequest" Value="22" />
+        </Style>
+
+        <!--  STYLE DE IMAGEBUTTON -->
+        <Style x:Key="ImageButtonListItem" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="{StaticResource TransparentColor}" />
+            <Setter Property="HeightRequest" Value="24" />
+            <Setter Property="WidthRequest" Value="24" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+        <!--  STYLE DE IMAGEBUTTON -->
+        <Style x:Key="ImageButtonFrameAlerteStockage" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="{StaticResource TransparentColor}" />
+            <Setter Property="HeightRequest" Value="24" />
+            <Setter Property="WidthRequest" Value="24" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+
+        <!--  STYLE DE IMAGEBUTTON -->
+        <Style x:Key="ImageButtonNavUser" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="{StaticResource TransparentColor}" />
+            <Setter Property="HeightRequest" Value="32" />
+            <Setter Property="WidthRequest" Value="32" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+        <!--  STYLE DE BUTTON -->
+        <Style x:Key="ButtonFrameAlertStock" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource RedButtonColor}" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="180" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="CornerRadius" Value="24" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextTransform" Value="None" />
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            
+        </Style>
+
+
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ FIN BUTTON §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ IMAGE §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+      
+        <!--  STYLE DE IMAGE LISTE -->
+        <Style x:Key="ImageListeItem" TargetType="Image">
+            <Setter Property="HeightRequest" Value="24" />
+            <Setter Property="WidthRequest" Value="24" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+        <Style x:Key="ImageFrameAlertStockage" TargetType="Image">
+            <Setter Property="HeightRequest" Value="24" />
+            <Setter Property="WidthRequest" Value="24" />
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="VerticalOptions" Value="StartAndExpand" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ FIN IMAGE §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ FRAME §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+        <!--  STYLE DE FRAME POUR BUTTON FLOTTANT-->
+        <Style x:Key="Buttonflottant" TargetType="Frame">
+            <Setter Property="Padding" Value="20,16" />
+            <Setter Property="Margin" Value="0,0,16,16" />
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundSelectColor}" />
+            <Setter Property="HeightRequest" Value="28" />
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="End" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="HasShadow" Value="True" />
+        </Style>
+
+        <!--  STYLE DE FRAME POUR NAV CUSTOMIZER  DANS LES LISTES-->
+        <Style x:Key="FrameImageListItem" TargetType="Frame">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="IsClippedToBounds" Value="True" />
+            <Setter Property="HeightRequest" Value="18" />
+            <Setter Property="WidthRequest" Value="18" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+
+        <!--  STYLE DE FRAME POUR NAV CUSTOMIZER  DANS LES LISTES-->
+        <Style x:Key="FrameSearch" TargetType="Frame">
+            <Setter Property="Padding" Value="10,5,10,5" />
+            <Setter Property="Margin" Value="15,15,15,15" />
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundMenu}" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="CornerRadius" Value="26" />
+            <Setter Property="HasShadow" Value="False" />
+        </Style>
+
+       
+        <!--  STYLE DE FRAME POUR CONTENEUR D'ITEM DANS LES LISTES-->
+        <Style x:Key="FrameListApplicationConteneur" TargetType="Frame">
+            <Setter Property="Padding" Value="5,10,5,5" />
+            <Setter Property="HeightRequest" Value="80" />
+            <Setter Property="CornerRadius" Value="25" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Margin" Value="10,2,10,4" />
+        </Style>
+
+
+        <!--  STYLE DE FRAME POUR ALERT DE STOCKAGE-->
+        <Style x:Key="FrameApplicationAlertStockagr" TargetType="Frame">
+            <Setter Property="Padding" Value="10,15,10,20" />
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColorAlert}" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Margin" Value="15,10" />
+        </Style>
+
+
+        <!--  STYLE DE FRAME POUR CONTENEUR D'ITEM DANS LES LISTES-->
+        <Style x:Key="FrameListApplicationConteneurPetit" TargetType="Frame">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Margin" Value="0,.3,0,0" />
+        </Style>
+
+        <!--  STYLE DE FRAME POUR CONTENIR LE CONTENEUR D'ITEM DANS LES LISTES-->
+        <Style x:Key="FrameConteneurDeConteneurListApplication" TargetType="Frame">
+            <Setter Property="Padding" Value="0,0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="HasShadow" Value="False" />
+        </Style>
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ FIN FRAME §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ LABEL §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+        
+        <!--  STYLE DE TEXTE POUR LES TEXTES DANS LES ITEMS DE LISTE SANS BOLD-->
+        <Style x:Key="labelChmapsSaisieSearch" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource BlackCustom}" />
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        
+        
+        <!-- STYLE DE TEXTE POUR LES TITRES DE LISTES-->
+
+        <Style x:Key="TitreListeApplication" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource BlackCustom}" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+
+        <!-- STYLE DE TEXTE POUR LES TITRES DE LISTES-->
+        <Style x:Key="TitreListeApplicationGray" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        
+        <!--  STYLE DE TEXTE POUR LES TITRES DANS LES ITEMS DE LISTE-->
+        <Style x:Key="TitrelisteItem" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource BlackCustom}" />
+            <Setter Property="FontSize" Value="17" />
+        </Style>
+
+
+        <!--  STYLE DE TEXTE POUR LES FRAMES DANS LES ALERTES DE STOCKAGE-->
+        <Style x:Key="TitreFrameAlertItem" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="MaxLines" Value="2" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource textForRedColor}" />
+            <Setter Property="FontSize" Value="17" />
+        </Style>
+
+
+        <!--  STYLE DE TEXTE POUR LES SOUS TITRES LES FRAMES DANS LES ALERTES DE STOCKAGE-->
+        <Style x:Key="SousTitreFrameAlertItem" TargetType="Label">
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="MaxLines" Value="5" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource textForRedColor}" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+
+        <!--  STYLE DE TEXTE POUR LES SOUS TITRES LES FRAMES DANS LES ALERTES DE STOCKAGE-->
+        <Style x:Key="SousTitreFrameAlertItemBold" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource textForRedColor}" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+        <!--  STYLE DE TEXTE POUR LES SOUS TITRES DANS LES ITEMS DE LA LISTE-->
+        <Style x:Key="SousTitrelisteItem" TargetType="Label">
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource BlackCustom}" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+
+        
+        <!--  STYLE DE TEXTE POUR LES TEXTES DANS LES ITEMS DE LISTE SANS BOLD-->
+        <Style x:Key="DescriptionlabelListeItem" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource GrayColor}" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+
+        <!--  STYLE DE TEXTE POUR LE BOUTON FLOTTANT DANS LES LISTES -->
+        <Style x:Key="labelButtonFlottantListe" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource BkueTextColorButton}" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="FontSize" Value="17" />
+        </Style>
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ FIN LABEL §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ LISTE §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+       
+        <!--  STYLE DE COLLECTIONVIEW POUR LES LISTES-->
+        <Style x:Key="CollectionviewListeStyle" TargetType="CollectionView">
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            <Setter Property="ItemsLayout" Value="VerticalList" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Never" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Never" />
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="BackgroundColor" Value="{StaticResource TransparentColor}" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+        
+        <!--§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§ FIN LISTE §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§-->
+
+
+        <!--  STYLE POUR LES  barres de navigation --><!--
+        <Style TargetType="NavigationPage"  ApplyToDerivedTypes="True">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource violetclaire}"/>
+            <Setter Property="BarTextColor" Value="{StaticResource Primary}"/>
+        </Style>
+
+
+        --><!-- STYLE POUR LES BOUTONS FLEX ICONE--><!--
+        <Style x:Key="BoutonApplicationFlexMenuBlanc" TargetType="flex:FlexButton">
+            <Setter Property="ForegroundColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="HighlightBackgroundColor" Value="{StaticResource couleurClicked}" />
+
+        </Style>
+
+        --><!-- STYLE POUR LES BOUTONS FLEX ICONE TRANSPARENT--><!--
+        <Style x:Key="BoutonApplicationFlexMenulISTEETDETAIL" TargetType="flex:FlexButton">
+            <Setter Property="ForegroundColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="Padding" Value="0,5,0,5" />
+            <Setter Property="Padding" Value="0,5,0,5" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="IconPadding" Value="5" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="BackgroundColor" Value="{StaticResource violetclaireButton}" />
+            <Setter Property="IconPadding" Value="5" />
+            <Setter Property="HighlightBackgroundColor" Value="{StaticResource violetclaireOpaque}" />
+
+        </Style>
+
+
+        --><!-- STYLE POUR LES BOUTONS FLEX ICONE --><!--
+        <Style x:Key="BoutonApplicationFlexMenuViolet" TargetType="flex:FlexButton">
+            <Setter Property="ForegroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="60" />
+            <Setter Property="BackgroundColor" Value="{StaticResource noirclairbutton}" />
+            <Setter Property="HighlightBackgroundColor" Value="{StaticResource noirclairbuttoneffect}" />
+
+        </Style>
+
+        --><!-- STYLE POUR LES BOUTONS FLEX ICONE--><!--
+        <Style x:Key="BoutonApplicationFlexIcone" TargetType="flex:FlexButton">
+            <Setter Property="HasShadow" Value="false" />
+            <Setter Property="IconPadding" Value="1" />
+            <Setter Property="IconTintEnabled" Value="True" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="HeightRequest" Value="45" />
+            <Setter Property="WidthRequest" Value="45" />
+            <Setter Property="BackgroundColor" Value="{StaticResource violetclaire}" />
+            <Setter Property="HighlightBackgroundColor" Value="{StaticResource violetpure}" />
+        </Style>
+
+
+        --><!-- STYLE POUR LES BOUTONS AVEC ATTRIBUT BOLD--><!--
+        <Style x:Key="BoutonApplicationBold" TargetType="Button">
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource violetclaire}" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE POUR LES BOUTONS AVEC ATTRIBUT BOLD COULEUR SOMBRE--><!--
+        <Style x:Key="BoutonApplicationBoldSombre" TargetType="Button">
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource noirclairbutton}" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+
+        --><!-- STYLE POUR LES BOUTONS SANS ATTRIBUT BOLD--><!--
+        <Style x:Key="BoutonApplication" TargetType="Button">
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="BackgroundColor" Value="{StaticResource violetclaire}" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE POUR LES BOUTONS AVEC BORDERCOLOR--><!--
+        <Style x:Key="BoutonApplicationBorder" TargetType="Button">
+            <Setter Property="TextColor" Value="{StaticResource violetclaire}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="BorderColor" Value="{StaticResource couleurnoirnuancersecond}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+
+        --><!-- STYLE POUR LES BOUTONS --><!--
+        <Style x:Key="ImageBoutonAjoutEtDetail" TargetType="ImageButton">
+            <Setter Property="HeightRequest" Value="25" />
+            <Setter Property="WidthRequest" Value="25" />
+            <Setter Property="Margin" Value="4,4,0,0" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="VerticalOptions" Value="Start" />
+            <Setter Property="Source" Value="{pathimage:ImageResource VRPApplicationCERG.Images.icons8multiply50.png}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE LISTES--><!--
+        <Style x:Key="GrosTitreListeApplication" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+
+        --><!-- STYLE DE BASE SUR LES TITRES DE PAGE DANS L'APPLICATION --><!--
+        <Style x:Key="TitreApplication" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee2}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="Title" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE DE BASE SUR LES TITRES DE PAGE DANS L'APPLICATION --><!--
+        <Style x:Key="TitreApplicationHead" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee2}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE DE BASE SUR LES TITRES DE PAGE DANS L'APPLICATION --><!--
+        <Style x:Key="TitreApplicationDetail" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee2}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+
+        <Style x:Key="TitleStyleHistoriue" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
+
+        --><!-- STYLE DE BASE SUR LES TITRES DE PAGE DANS L'APPLICATION --><!--
+        <Style x:Key="TitreApplicationDetailGray" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee1}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE DE BASE SUR LES TITRES DE PAGE DANS L'APPLICATION --><!--
+        <Style x:Key="TitreApplicationSousTitre" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="LineBreakMode" Value="HeadTruncation" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE LISTES--><!--
+        <Style x:Key="TitreListeApplication" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE LISTES--><!--
+        <Style x:Key="TitreListeApplicationDetail" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE LISTES--><!--
+        <Style x:Key="TitreListeApplicationGrayDetail" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee1}" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        --><!-- STYLE DE TEXTE POUR LES VALIDATUION DE SAISIE--><!--
+        <Style TargetType="Label" x:Key="ErrorTextStyle">
+            <Setter Property="TextColor" Value = "Red"   />
+            <Setter Property="FontSize" Value = "12"   />
+        </Style>
+
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE LISTES--><!--
+        <Style x:Key="TitreListeApplicationGrayDetailUppercase" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE LISTES--><!--
+        <Style x:Key="TitreListeApplicationGray" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee1}" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE NAV--><!--
+        <Style x:Key="TitreListeApplicationNav" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+
+
+        --><!-- STYLE DE TEXTE POUR LES TITRES DE NAV--><!--
+        <Style x:Key="TitreListeApplicationNavBlanc" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+        --><!-- STYLE DE TEXTE POUR LES DETAILS--><!--
+        <Style x:Key="TextApplicationDetail" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee1}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextTransform" Value="Uppercase" />
+        </Style>
+
+        --><!--  STYLE DE TEXTE POUR LES TITRES DANS LES ITEMS DE LISTE--><!--
+        <Style x:Key="TitrelisteApplicationItem" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+
+        --><!--  STYLE DE TEXTE POUR LES TITRES DANS LES ITEMS DE LISTE--><!--
+        <Style x:Key="TitreCrouselApplication" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="Title" />
+        </Style>
+
+
+        --><!--  STYLE DE TEXTE POUR LES TITRES DANS LES ITEMS DE LISTE AVEC BOLD--><!--
+        <Style x:Key="Descriptionlabelbold" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoirnuancer}" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+
+        --><!--  STYLE DE TEXTE POUR LES TEXTES DANS LES ITEMS DE LISTE SANS BOLD--><!--
+        <Style x:Key="Descriptionlabelsansbold" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoirnuancer}" />
+            <Setter Property="MaxLines" Value="1" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+        --><!--  STYLE DE TEXTE POUR LES TEXTES DANS les formulaires description SANS BOLD--><!--
+        <Style x:Key="Descriptionlabelgraysansbold" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource couleurchampsdesaisiePlaceholder}" />
+            <Setter Property="MaxLines" Value="5" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+        </Style>
+
+        --><!--  STYLE DE TEXTE POUR LES TEXTES DANS LES CAROUSELVIEW SANS BOLD--><!--
+
+
+        <Style x:Key="DescriptionlabelsansboldCarousel" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoirnuancer}" />
+            <Setter Property="MaxLines" Value="4" />
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+
+
+        --><!--  STYLE DE TEXTE POUR LES TEXTES DANS LES ITEMS DE LISTE SANS BOLD--><!--
+        <Style x:Key="DescriptionlabelChmapsSaisie" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource DescriptioncouleurchampsdesaisieBleu}" />
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+
+        --><!--  STYLE DE TEXTE POUR LES TEXTES DANS LES DETAILS AVEC BOLD--><!--
+        <Style x:Key="DescriptionlabelChmapsSaisieDetail" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee2}" />
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextTransform" Value="Uppercase"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style x:Key="DescriptionlabelNoir" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource couleurGrayNuancee2}" />
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        --><!--  STYLE DE TEXTE POUR LES TEXTES DANS LES ITEMS DE LISTE SANS BOLD--><!--
+        <Style x:Key="DescriptionlabelChmapsSaisieSearch" TargetType="Label">
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoirnuancer}" />
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        --><!--  STYLE DE ENTRY OU CHAMPS DE SAISIE--><!--
+        <Style x:Key="ChampsSaisie" TargetType="Entry">
+            <Setter Property="TextColor" Value="{StaticResource couleurchampsdesaisieBleu}" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="HeightRequest" Value="48"/>
+            <Setter Property="PlaceholderColor" Value="{StaticResource couleurchampsdesaisiePlaceholder}" />
+        </Style>
+
+        <Style x:Key="ChampsSaisieLogin" TargetType="Entry">
+            <Setter Property="TextColor" Value="{StaticResource couleurchampsdesaisieBleu}" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="HeightRequest" Value="52"/>
+            <Setter Property="PlaceholderColor" Value="{StaticResource couleurchampsdesaisiePlaceholder}" />
+        </Style>
+
+
+
+
+        --><!--  STYLE DE PICKER --><!--
+        <Style x:Key="ChampsSelection" TargetType="Picker">
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="HeightRequest" Value="45"/>
+            <Setter Property="TitleColor" Value="{StaticResource couleurGrayNuancee4}" />
+        </Style>
+
+
+        --><!--  STYLE DE SEARCHBAR OU CHAMPS DE SAISIE DE RECHERCHE--><!--
+        <Style x:Key="ChampsDeRecherche" TargetType="SearchBar">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource couleurGRAY}" />
+            <Setter Property="TextColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource couleurGrayNuancee1}" />
+            <Setter Property="HeightRequest" Value="40" />
+        </Style>
+
+
+        --><!--  STYLE DE FRAME POUR LISTE EN ARRIERE--><!--
+        <Style x:Key="FrameListApplication" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{StaticResource couleurGRAY}" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="HeightRequest" Value="88" />
+            <Setter Property="Padding" Value="2,.3" />
+        </Style>
+
+
+        --><!--  STYLE DE FRAME POUR SIGNALEUR DE CONNEXION--><!--
+        <Style x:Key="FrameSignaleurCOnnexionApplication" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="HeightRequest" Value="88" />
+            <Setter Property="Padding" Value="5,2,5,2" />
+            <Setter Property="CornerRadius" Value="0" />
+        </Style>
+
+        --><!--  STYLE DE FRAME POUR CONTENEUR D'ITEM DANS LES LISTES--><!--
+        <Style x:Key="FrameListApplicationConteneur" TargetType="Frame">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="HeightRequest" Value="88" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Margin" Value="0,.3,0,0" />
+            --><!--<Setter Property="Elevation" Value="2" />--><!--
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+
+        --><!--  STYLE DE FRAME POUR CONTENEUR D'ITEM DANS LES LISTES--><!--
+        <Style x:Key="FrameListApplicationConteneurBorder" TargetType="Frame">
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="BorderColor" Value="{StaticResource BorderColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="HeightRequest" Value="100" />
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+
+        --><!--  STYLE DE FRAME POUR CONTENEUR D'ITEM DANS LES LISTES--><!--
+        <Style x:Key="FrameListApplicationConteneurPetit" TargetType="Frame">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Margin" Value="0,.3,0,0" />
+            --><!--<Setter Property="Elevation" Value="2" />--><!--
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        --><!--  STYLE DE FRAME POUR CONTENEUR D'ITEM DANS LES LISTES--><!--
+        <Style x:Key="FrameListSearch" TargetType="Frame">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="CornerRadius" Value="7" />
+            <Setter Property="HasShadow" Value="True" />
+            --><!--<Setter Property="Elevation" Value="2" />--><!--
+            <Setter Property="Visual" Value="Material" />
+        </Style>
+
+        <Style x:Key="FrameChampsaisie" TargetType="Frame">
+            <Setter Property="Padding" Value="0,0" />
+            <Setter Property="CornerRadius" Value="7" />
+            <Setter Property="HeightRequest" Value="46" />
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="BorderColor" Value="{StaticResource couleurBordurechamps}" />
+        </Style>
+
+
+        <Style x:Key="PancakeChampsaisiepersonnalisé" TargetType="yummy:PancakeView">
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Padding" Value="0,0" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderColor" Value="{StaticResource BorderChampsdesaisiegris}"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource violetclaireoPACITYPUR}"/>
+        </Style>
+
+        <Style x:Key="PancakeChampsaisiepersonnaliséLogin" TargetType="yummy:PancakeView">
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Padding" Value="0,0" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderColor" Value="{StaticResource couleurnoirnuancersecond}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+        </Style>
+
+        <Style x:Key="FrameChampsaisiepersonnalisé" TargetType="Frame">
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="BorderColor" Value="{StaticResource couleurBordurechamps}" />
+        </Style>
+
+        <Style x:Key="FrameChampsaisiepersonnaliséSearch" TargetType="Frame">
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BackgroundColor" Value="{StaticResource couleurGrayNuancee4}" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="BorderColor" Value="{StaticResource couleurBordurechamps}" />
+        </Style>
+
+
+        --><!--  STYLE DE COLLECTIONVIEW POUR LES LISTES--><!--
+        <Style x:Key="CollectionviewListeStyle" TargetType="CollectionView">
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            <Setter Property="ItemsLayout" Value="VerticalList" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Never" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Never" />
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="BackgroundColor" Value="{StaticResource couleurGrayNuancee5}" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+        </Style>
+
+
+        -->
+        <!--  STYLE DE IMAGEBUTTON --><!--
+        <Style x:Key="ImageButtonApplication" TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+
+        --><!--  STYLE DE box LISTE --><!--
+        <Style x:Key="Boxview" TargetType="BoxView">
+            <Setter Property="HeightRequest" Value="1" />
+            <Setter Property="BackgroundColor" Value="{StaticResource couleurBordurechamps}" />
+        </Style>
+
+        <Style x:Key="BoxviewHead" TargetType="BoxView">
+            <Setter Property="HeightRequest" Value="1" />
+            <Setter Property="BackgroundColor" Value="LightGray" />
+        </Style>
+
+        --><!--  STYLE DE IMAGE LISTE --><!--
+        <Style x:Key="ImageListePrincipaleApplication" TargetType="Image">
+            <Setter Property="HeightRequest" Value="65" />
+            <Setter Property="WidthRequest" Value="65" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+
+        --><!--  STYLE DE IMAGE LISTE --><!--
+        <Style x:Key="ImageListeApplication" TargetType="Image">
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+        --><!--  STYLE DE IMAGE LISTE --><!--
+        <Style x:Key="ImageListeApplicationpetiteFrame" TargetType="Image">
+            <Setter Property="HeightRequest" Value="30" />
+            <Setter Property="WidthRequest" Value="30" />
+            <Setter Property="Aspect" Value="AspectFit" />
+        </Style>
+
+
+        --><!--  STYLE DE FRAME POUR PROFIL --><!--
+        <Style x:Key="FrameProfilDetail" TargetType="Frame">
+            <Setter Property="TranslationY" Value="{OnPlatform iOS='-183', Android='-63'}"/>
+            <Setter Property="HeightRequest" Value="{OnPlatform iOS='240', Android='348'}"/>
+            <Setter Property="HasShadow" Value="False" />
+        </Style>
+
+
+        --><!--test des elements--><!--
+        <Style x:Key="stlContactBtn" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{StaticResource noirclairbutton}"/>
+            <Setter Property="WidthRequest" Value="56"/>
+            <Setter Property="HeightRequest" Value="56"/>
+            <Setter Property="CornerRadius" Value="28"/>
+            <Setter Property="Visual" Value="Material"/>
+        </Style>
+
+
+        --><!--test des elements--><!--
+        <Style TargetType="Frame">
+            <Setter Property="HeightRequest" Value="{OnPlatform iOS='210', Android='318'}"/>
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="CornerRadius" Value="40" />
+        </Style>
+
+
+
+        --><!-- Style pour les parametres de l'application --><!--
+        <Style TargetType="sv:SettingsView">
+            <Setter Property="SeparatorColor" Value="{StaticResource DisabledColor}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PaleBackColorPrimary}" />
+            <Setter Property="HeaderBackgroundColor" Value="{StaticResource PaleBackColorPrimary}" />
+            <Setter Property="CellBackgroundColor" Value="{StaticResource AppBackground}" />
+            <Setter Property="CellTitleColor" Value="{StaticResource couleurnoir}" />
+            <Setter Property="CellValueTextColor" Value="{StaticResource NormalTextColor}" />
+            <Setter Property="CellTitleFontSize" Value="{StaticResource BaseFontSize++}" />
+            <Setter Property="CellValueTextFontSize" Value="{StaticResource BaseFontSize}" />
+            <Setter Property="CellDescriptionColor" Value="{StaticResource NormalTextColor}" />
+            <Setter Property="CellDescriptionFontSize" Value="{StaticResource BaseFontSize-}" />
+            <Setter Property="CellAccentColor" Value="{StaticResource AccentColor}" />
+            <Setter Property="SelectedColor" Value="{StaticResource couleurClicked}" />
+            <Setter Property="HeaderTextColor" Value="Gray" />
+            <Setter Property="FooterFontSize" Value="{StaticResource BaseFontSize-}" />
+            <Setter Property="FooterTextColor" Value="{StaticResource PaleTextColor}" />
+        </Style>-->
+
+
+    </Application.Resources>
+</Application>
